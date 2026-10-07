@@ -1,0 +1,31 @@
+{% if gallery.is_active %}
+<section class="gallery pattern-section" id="gallery"{% if gallery.background %} style="--section-bg: url('{{ gallery.background.url }}')"{% endif %}>
+  <div class="container container--wide">
+    <div class="gallery__head">
+      <div>
+        {% if gallery.section_label %}<p class="eyebrow eyebrow--line" data-reveal>{{ gallery.section_label }}</p>{% endif %}
+        <h2 class="section-title gallery__title" data-reveal>
+          {% if gallery.heading_highlight %}<span class="text-gold">{{ gallery.heading_highlight }}</span> {% endif %}{{ gallery.heading }}
+        </h2>
+      </div>
+      {% if gallery.instagram_handle and gallery.instagram_link %}
+        <a class="btn btn--outline" href="{{ gallery.instagram_link }}" target="_blank" rel="noopener" data-reveal>
+          <i data-lucide="instagram"></i><span>{{ gallery.instagram_handle }}</span>
+        </a>
+      {% endif %}
+    </div>
+
+    {% with photos=gallery.active_photos %}
+      {% if photos %}
+        <div class="gallery__row">
+          {% for photo in photos %}
+            <a class="gallery__photo gallery__photo--{{ photo.size }}" href="{{ photo.url }}" target="_blank" rel="noopener" data-reveal>
+              <img src="{{ photo.image.url }}" alt="{{ photo.alt_text|default:'LIT community moment' }}" loading="lazy">
+            </a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+  </div>
+</section>
+{% endif %}

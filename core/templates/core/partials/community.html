@@ -1,0 +1,36 @@
+{% if community.is_active %}
+<section class="community pattern-section" id="community"{% if community.background %} style="--section-bg: url('{{ community.background.url }}')"{% endif %}>
+  <div class="container">
+    {% with highlights=community.active_highlights %}
+      {% if highlights %}
+        <div class="community__strip" data-reveal>
+          <span class="community__line" aria-hidden="true"></span>
+          <p class="highlight-words highlight-words--spaced">
+            {% for item in highlights %}<span>{{ item.text }}</span>{% if not forloop.last %}<span class="sep" aria-hidden="true">•</span>{% endif %}{% endfor %}
+          </p>
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="section-head">
+      {% if community.section_label %}<p class="eyebrow" data-reveal>{{ community.section_label }}</p>{% endif %}
+      <h2 class="section-title" data-reveal>
+        {{ community.heading }}{% if community.heading_highlight %} <em>{{ community.heading_highlight }}</em>{% endif %}
+      </h2>
+    </div>
+
+    <div class="community__grid">
+      {% for card in community.active_cards %}
+        <article class="community-card" data-reveal>
+          <div class="community-card__top">
+            <span class="community-card__icon"><i data-lucide="{{ card.icon }}"></i></span>
+            <span class="community-card__num" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
+          </div>
+          <h3 class="community-card__title">{{ card.title }}</h3>
+          {% if card.description %}<p class="community-card__text">{{ card.description }}</p>{% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}

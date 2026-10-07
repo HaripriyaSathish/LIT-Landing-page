@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ page.title }} | {{ site.site_title }}{% endblock %}
+
+{% block content %}
+  <header class="site-header site-header--page">
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="{% url 'home' %}" class="brand">
+        {% if navbar.logo %}
+          <img class="brand__logo" src="{{ navbar.logo.url }}" alt="{{ navbar.logo_alt_text }}" width="72" height="72">
+        {% endif %}
+        <span class="brand__text">
+          <span class="brand__name">{{ navbar.brand_name }}{% if navbar.brand_highlight %} <span>{{ navbar.brand_highlight }}</span>{% endif %}</span>
+          {% if navbar.tagline %}<span class="brand__tagline">{{ navbar.tagline }}</span>{% endif %}
+        </span>
+      </a>
+      <a class="btn btn--gold btn--nav" href="{% url 'home' %}">
+        <i data-lucide="arrow-left"></i><span>Back to home</span>
+      </a>
+    </nav>
+  </header>
+
+  <main class="info-page pattern-section">
+    <div class="container">
+      <article class="info-page__card">
+        <h1 class="section-title">{{ page.title }}</h1>
+        <p class="info-page__updated">Last updated {{ page.updated_at|date:"j F Y" }}</p>
+        {% for block in page.blocks %}
+          {% if block.type == 'heading' %}
+            <h2 class="info-page__heading">{{ block.text }}</h2>
+          {% else %}
+            <p>{{ block.text|linebreaksbr }}</p>
+          {% endif %}
+        {% endfor %}
+      </article>
+    </div>
+  </main>
+
+  {% include 'core/partials/footer.html' %}
+{% endblock %}

@@ -1,0 +1,42 @@
+<header class="site-header" id="siteHeader">
+  <nav class="navbar" aria-label="Main navigation">
+    <a href="#home" class="brand">
+      {% if navbar.logo %}
+        <img class="brand__logo" src="{{ navbar.logo.url }}" alt="{{ navbar.logo_alt_text }}" width="72" height="72">
+      {% endif %}
+      <span class="brand__text">
+        <span class="brand__name">{{ navbar.brand_name }}{% if navbar.brand_highlight %} <span>{{ navbar.brand_highlight }}</span>{% endif %}</span>
+        {% if navbar.tagline %}<span class="brand__tagline">{{ navbar.tagline }}</span>{% endif %}
+        {% if navbar.sub_tagline %}<span class="brand__sub">{{ navbar.sub_tagline }}</span>{% endif %}
+      </span>
+    </a>
+
+    <div class="navbar__mobile">
+      {% if navbar.show_button and navbar.button_text %}
+        {% with button=navbar.button %}
+          <a class="btn btn--gold btn--nav-mobile" href="{{ button.url }}"{% if button.new_tab %} target="_blank" rel="noopener"{% endif %}>{{ button.text }}</a>
+        {% endwith %}
+      {% endif %}
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">
+        <i data-lucide="menu" class="nav-toggle__open"></i>
+        <i data-lucide="x" class="nav-toggle__close"></i>
+      </button>
+    </div>
+
+    <div class="nav" id="siteNav">
+      <ul class="nav__links">
+        {% for link in navbar.active_links %}
+          <li><a href="{{ link.link }}"{% if link.open_in_new_tab %} target="_blank" rel="noopener"{% endif %}>{{ link.label }}</a></li>
+        {% endfor %}
+      </ul>
+      {% if navbar.show_button and navbar.button_text %}
+        {% with button=navbar.button %}
+          <a class="btn btn--gold btn--nav" href="{{ button.url }}"{% if button.new_tab %} target="_blank" rel="noopener"{% endif %}>
+            <span class="btn__label">{{ button.text }}</span>
+            <i data-lucide="arrow-right"></i>
+          </a>
+        {% endwith %}
+      {% endif %}
+    </div>
+  </nav>
+</header>

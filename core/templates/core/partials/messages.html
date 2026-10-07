@@ -1,0 +1,48 @@
+{% if messages_section.is_active %}
+<section class="messages pattern-section" id="messages"{% if messages_section.background %} style="--section-bg: url('{{ messages_section.background.url }}')"{% endif %}>
+  <div class="container">
+    <div class="section-head">
+      {% if messages_section.section_label %}<p class="eyebrow" data-reveal>{{ messages_section.section_label }}</p>{% endif %}
+      <h2 class="section-title" data-reveal>
+        {{ messages_section.heading }}{% if messages_section.heading_highlight %} <em>{{ messages_section.heading_highlight }}</em>{% endif %}
+      </h2>
+      {% if messages_section.description %}<p class="section-text messages__text" data-reveal>{{ messages_section.description }}</p>{% endif %}
+    </div>
+
+    <div class="messages__grid">
+      {% for message in messages_section.active_messages %}
+        <article class="message-card" data-reveal>
+          <div class="message-card__media">
+            {% if message.photo %}
+              <img src="{{ message.photo.url }}" alt="{{ message.name }}{% if message.role %}, {{ message.role }}{% endif %}" loading="lazy">
+            {% else %}
+              <span class="message-card__placeholder" aria-hidden="true">{{ message.name|slice:":1" }}</span>
+            {% endif %}
+            {% if message.button_text %}
+              <a class="btn btn--gold btn--watch" href="{{ message.button_url }}" target="_blank" rel="noopener">
+                <i data-lucide="play"></i><span>{{ message.button_text }}</span>
+              </a>
+            {% endif %}
+          </div>
+          <div class="message-card__body">
+            <h3 class="message-card__name">{{ message.name }}</h3>
+            {% if message.role %}<p class="message-card__role">{{ message.role }}</p>{% endif %}
+            {% if message.status_text %}<p class="message-card__status">{{ message.status_text }}</p>{% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    {% if messages_section.follow_text_before or messages_section.follow_handle or messages_section.follow_text_after %}
+      <p class="follow-line" data-reveal>
+        <i data-lucide="instagram"></i>
+        <span>
+          {{ messages_section.follow_text_before }}
+          {% if messages_section.follow_handle %}<a href="{{ messages_section.follow_link|default:'#' }}" target="_blank" rel="noopener">{{ messages_section.follow_handle }}</a>{% endif %}
+          {{ messages_section.follow_text_after }}
+        </span>
+      </p>
+    {% endif %}
+  </div>
+</section>
+{% endif %}

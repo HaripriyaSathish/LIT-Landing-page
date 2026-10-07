@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+  {% include 'core/partials/navbar.html' %}
+
+  <main>
+    {% include 'core/partials/hero.html' %}
+    {% include 'core/partials/about.html' %}
+    {% include 'core/partials/community.html' %}
+    {% include 'core/partials/events.html' %}
+    {% include 'core/partials/gallery.html' %}
+    {% include 'core/partials/messages.html' %}
+    {% include 'core/partials/join.html' %}
+    {% include 'core/partials/social.html' %}
+    {% include 'core/partials/contact.html' %}
+  </main>
+
+  {% include 'core/partials/footer.html' %}
+  {% include 'core/partials/floating_buttons.html' %}
+{% endblock %}

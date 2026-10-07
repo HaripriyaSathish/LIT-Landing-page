@@ -1,0 +1,42 @@
+{% if contact.is_active %}
+<section class="contact pattern-section" id="contact"{% if contact.background %} style="--section-bg: url('{{ contact.background.url }}')"{% endif %}>
+  <div class="container">
+    <div class="contact__card" data-reveal>
+      {% if contact.section_label %}<p class="eyebrow">{{ contact.section_label }}</p>{% endif %}
+      <h2 class="contact__title">{{ contact.heading }}</h2>
+
+      <div class="contact__details">
+        {% if contact.location %}
+          <p class="contact__item">
+            <i data-lucide="map-pin"></i>
+            {% if contact.location_link %}<a href="{{ contact.location_link }}" target="_blank" rel="noopener">{{ contact.location }}</a>{% else %}<span>{{ contact.location }}</span>{% endif %}
+          </p>
+        {% endif %}
+        <div class="contact__group">
+          {% if contact.email %}<p class="contact__item"><i data-lucide="mail"></i><a href="{{ contact.email_url }}">{{ contact.email }}</a></p>{% endif %}
+          {% if contact.phone %}<p class="contact__item"><i data-lucide="phone"></i><a href="{{ contact.phone_url }}">{{ contact.phone }}</a></p>{% endif %}
+        </div>
+      </div>
+
+      {% if contact.person_name %}
+        <hr class="contact__divider">
+        <p class="contact__person">
+          {{ contact.person_name }}{% if contact.person_role %} <span>&mdash; {{ contact.person_role }}</span>{% endif %}
+        </p>
+      {% endif %}
+
+      {% with buttons=contact.active_buttons %}
+        {% if buttons %}
+          <div class="contact__buttons">
+            {% for button in buttons %}
+              <a class="btn btn--maroon" href="{{ button.url|default:'#' }}"{% if button.url and button.kind != 'call' and button.kind != 'email' %} target="_blank" rel="noopener"{% endif %}>
+                <i data-lucide="{{ button.icon }}"></i><span>{{ button.label }}</span>
+              </a>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+</section>
+{% endif %}

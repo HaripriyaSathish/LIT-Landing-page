@@ -1,0 +1,33 @@
+<footer class="site-footer" id="siteFooter">
+  <div class="container container--wide">
+    <div class="footer__card">
+      <p class="footer__brand">{{ footer.brand_name }}</p>
+      {% if footer.tagline %}<p class="footer__tagline">{{ footer.tagline }}</p>{% endif %}
+      {% if footer.quote %}<p class="footer__quote">{{ footer.quote }}</p>{% endif %}
+
+      {% with links=footer.social_links %}
+        {% if links %}
+          <ul class="footer__social">
+            {% for link in links %}
+              <li>
+                <a href="{{ link.url|default:'#' }}"{% if link.url %} target="_blank" rel="noopener"{% endif %} aria-label="{{ link.get_platform_display }}">
+                  <i data-lucide="{{ link.icon }}"></i>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
+      {% with pages=footer.page_links %}
+        {% if pages %}
+          <ul class="footer__links">
+            {% for page in pages %}<li><a href="{{ page.get_absolute_url }}">{{ page.title }}</a></li>{% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
+      <p class="footer__copy">{{ footer.copyright }}</p>
+    </div>
+  </div>
+</footer>

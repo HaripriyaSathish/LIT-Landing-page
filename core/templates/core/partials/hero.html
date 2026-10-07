@@ -1,0 +1,42 @@
+{% if hero.is_active %}
+<section class="hero" id="home"{% if hero.background_image %} style="--hero-bg: url('{{ hero.background_image.url }}')"{% endif %}{% if hero.background_image_alt_text %} role="img" aria-label="{{ hero.background_image_alt_text }}"{% endif %}>
+  <div class="hero__inner">
+    {% with tags=hero.active_tags %}
+      {% if tags %}
+        <div class="hero__badge" data-reveal>
+          {% for tag in tags %}
+            <span>{{ tag.text }}</span>{% if not forloop.last %}<span class="dot" aria-hidden="true"></span>{% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <h1 class="hero__title" data-reveal>
+      {{ hero.heading }}{% if hero.heading_highlight %} <em>{{ hero.heading_highlight }}</em>{% endif %}
+    </h1>
+
+    {% if hero.description %}<p class="hero__text" data-reveal>{{ hero.description }}</p>{% endif %}
+    {% if hero.sub_description %}<p class="hero__subtext" data-reveal>{{ hero.sub_description }}</p>{% endif %}
+
+    {% with buttons=hero.buttons %}
+      {% if buttons %}
+        <div class="hero__actions" data-reveal>
+          {% for button in buttons %}
+            {% if button.style == 'primary' %}
+              <a class="btn btn--gold btn--hero" href="{{ button.url }}"{% if button.new_tab %} target="_blank" rel="noopener"{% endif %}>
+                <span class="btn__label">{{ button.text }}</span>
+                <i data-lucide="arrow-right"></i>
+              </a>
+            {% else %}
+              <a class="btn btn--glass" href="{{ button.url }}"{% if button.new_tab %} target="_blank" rel="noopener"{% endif %}>
+                <i data-lucide="ticket"></i>
+                <span>{{ button.text }}</span>
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+  </div>
+</section>
+{% endif %}

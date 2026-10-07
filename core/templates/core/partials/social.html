@@ -1,0 +1,26 @@
+{% if social.is_active %}
+<section class="social pattern-section" id="social"{% if social.background %} style="--section-bg: url('{{ social.background.url }}')"{% endif %}>
+  <div class="container social__grid">
+    <div class="social__intro">
+      {% if social.section_label %}<p class="eyebrow" data-reveal>{{ social.section_label }}</p>{% endif %}
+      <h2 class="section-title social__title" data-reveal>
+        {{ social.heading }}{% if social.heading_highlight %} <em>{{ social.heading_highlight }}</em>{% endif %}
+      </h2>
+      {% if social.description %}<p class="section-text social__text" data-reveal>{{ social.description }}</p>{% endif %}
+    </div>
+
+    <div class="social__cards">
+      {% for account in social.active_links %}
+        <a class="social-card" href="{{ account.url|default:'#' }}"{% if account.url %} target="_blank" rel="noopener"{% endif %} data-reveal>
+          <span class="social-card__icon"><i data-lucide="{{ account.icon }}"></i></span>
+          <span class="social-card__text">
+            {% if account.label %}<span class="social-card__label">{{ account.label }}</span>{% endif %}
+            <span class="social-card__name">{{ account.account_name }}</span>
+          </span>
+          <i data-lucide="arrow-right" class="social-card__arrow"></i>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}

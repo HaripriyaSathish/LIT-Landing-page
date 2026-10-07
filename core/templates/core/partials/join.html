@@ -1,0 +1,29 @@
+{% if join.is_active %}
+<section class="join pattern-section" id="join"{% if join.background %} style="--section-bg: url('{{ join.background.url }}')"{% endif %}>
+  <div class="container container--xwide">
+    <div class="join__banner" data-reveal{% if join.banner_image %} style="--join-bg: url('{{ join.banner_image.url }}')"{% endif %}{% if join.banner_image_alt_text %} role="img" aria-label="{{ join.banner_image_alt_text }}"{% endif %}>
+      <h2 class="join__title">
+        {{ join.heading }}{% if join.heading_highlight %} <em>{{ join.heading_highlight }}</em>{% endif %}
+      </h2>
+      {% if join.subheading %}<p class="join__subheading">{{ join.subheading }}</p>{% endif %}
+      {% if join.description %}<p class="join__text">{{ join.description }}</p>{% endif %}
+
+      {% with benefits=join.active_benefits %}
+        {% if benefits %}
+          <ul class="join__pills">
+            {% for benefit in benefits %}<li>{{ benefit.text }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
+      {% if join.button_text %}
+        {% with button=join.button %}
+          <a class="btn btn--gold btn--hero join__button" href="{{ button.url }}"{% if button.new_tab %} target="_blank" rel="noopener"{% endif %}>
+            <span>{{ button.text }}</span><i data-lucide="arrow-right"></i>
+          </a>
+        {% endwith %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
