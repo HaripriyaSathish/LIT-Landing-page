@@ -24,6 +24,7 @@ class AboutSectionForm(forms.ModelForm):
         widgets = {
             'paragraph_1': forms.Textarea(attrs={'rows': 4}),
             'paragraph_2': forms.Textarea(attrs={'rows': 4}),
+            'founder_bio': forms.Textarea(attrs={'rows': 10}),
         }
 
 
@@ -45,6 +46,13 @@ class AboutSectionAdmin(SingletonAdmin):
         }),
         ('Photo', {
             'fields': ['image', 'image_preview', 'image_alt_text', ('badge_title', 'badge_subtitle')],
+        }),
+        ('Founder', {
+            'fields': [
+                'show_founder', 'founder_name', 'founder_role',
+                'founder_bio', 'founder_quote', ('founder_button_text', 'founder_button_link'),
+            ],
+            'description': 'Shown under the About section, before Our Community.',
         }),
         (None, {'fields': ['updated_at']}),
     ]

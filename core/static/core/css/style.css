@@ -615,6 +615,49 @@ svg.lucide { width: 20px; height: 20px; stroke-width: 2; flex-shrink: 0; }
   color: var(--text);
 }
 
+/* ---------- Founder (inside About) ---------- */
+.founder {
+  margin-top: 110px;
+  padding: 48px 56px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(1, 34, 77, 0.08);
+  box-shadow: 0 24px 60px rgba(1, 34, 77, 0.08);
+}
+.founder__name {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 3.2vw, 44px);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--navy);
+}
+.founder__role {
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--gold);
+}
+.founder__text {
+  margin-top: 18px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text);
+}
+.founder__role + .founder__text { margin-top: 26px; }
+.founder__quote {
+  margin-top: 28px;
+  padding: 6px 0 6px 22px;
+  border-left: 3px solid var(--gold);
+  font-family: var(--font-heading);
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--navy);
+}
+.founder__button { margin-top: 32px; }
+
 /* ---------- Community ---------- */
 .community { padding: 56px 0 60px; }
 
@@ -1469,6 +1512,7 @@ svg.lucide { width: 20px; height: 20px; stroke-width: 2; flex-shrink: 0; }
 
 @media (max-width: 1024px) {
   .about__grid { grid-template-columns: 1fr; gap: 90px; }
+  .founder { padding: 36px; }
   .about__media { max-width: 520px; margin: 0 auto; width: calc(100% - 50px); }
 
   .community__grid,
@@ -1509,6 +1553,8 @@ svg.lucide { width: 20px; height: 20px; stroke-width: 2; flex-shrink: 0; }
   .pillars { margin-top: 40px; }
   .about__badge { right: -30px; bottom: -36px; width: 160px; padding: 14px 18px; }
   .event-card__artist { width: 64px; height: 64px; }
+  .founder { margin-top: 90px; padding: 28px 22px; border-radius: 24px; }
+  .founder__text { font-size: 15px; }
   .about__badge-title { font-size: 28px; }
 
   .community .section-head { margin-top: 44px; }

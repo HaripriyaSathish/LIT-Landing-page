@@ -42,5 +42,30 @@
       {% endwith %}
     </div>
   </div>
+
+  {% if about.show_founder and about.founder_name %}
+    <div class="container">
+      <article class="founder" data-reveal>
+        <div class="founder__content">
+          <h3 class="founder__name">{{ about.founder_name }}</h3>
+          {% if about.founder_role %}<p class="founder__role">{{ about.founder_role }}</p>{% endif %}
+
+          {% for paragraph in about.founder_paragraphs %}
+            <p class="founder__text">{{ paragraph }}</p>
+          {% endfor %}
+
+          {% if about.founder_quote %}
+            <blockquote class="founder__quote">&ldquo;{{ about.founder_quote }}&rdquo;</blockquote>
+          {% endif %}
+
+          {% if about.founder_button_text %}
+            <a class="btn btn--gold founder__button" href="{{ about.founder_button_link|default:'#contact' }}"{% if about.founder_button_link %} target="_blank" rel="noopener"{% endif %}>
+              <span>{{ about.founder_button_text }}</span><i data-lucide="arrow-right"></i>
+            </a>
+          {% endif %}
+        </div>
+      </article>
+    </div>
+  {% endif %}
 </section>
 {% endif %}

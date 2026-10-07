@@ -30,6 +30,14 @@ SITE_SETTINGS = {
         'community, careers, business, sports, social activities and events.'
     ),
     'from_name': 'London Indian Tamils (LIT)',
+    # Gmail SMTP - only the App Password is entered by hand in the admin
+    'smtp_host': 'smtp.gmail.com',
+    'smtp_port': 587,
+    'smtp_use_tls': True,
+    'smtp_use_ssl': False,
+    'smtp_username': 'londonindiantamils@gmail.com',
+    'from_email': 'londonindiantamils@gmail.com',
+    'notification_email': 'londonindiantamils@gmail.com',
 }
 
 NAVBAR = {

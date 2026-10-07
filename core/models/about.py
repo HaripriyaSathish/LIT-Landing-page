@@ -1,5 +1,17 @@
 from django.db import models
 
+FOUNDER_BIO = (
+    "London Indian Tamils was founded by Sathish Duraisamy with a simple vision - to create a stronger, "
+    "more connected and supportive community for Tamil-speaking Indians living across the UK.\n\n"
+    "Having lived in the UK for many years and been actively involved in community, cultural and social "
+    "initiatives, Sathish wanted to create a platform that goes beyond events and WhatsApp conversations - "
+    "a community where people can build friendships, support careers and businesses, share opportunities "
+    "and celebrate Tamil culture together.\n\n"
+    "His vision for LIT is to bring people together across generations, professions and locations, creating "
+    "meaningful connections and a community that supports one another."
+)
+FOUNDER_QUOTE = 'LIT is about people, relationships and creating something valuable for the community - together.'
+
 from core.icons import ICON_CHOICES
 
 from .base import OrderedItem, SingletonModel, image_field
@@ -28,12 +40,37 @@ class AboutSection(SingletonModel):
     )
     badge_subtitle = models.CharField('Photo badge - small text', max_length=50, blank=True, default='ONE COMMUNITY')
 
+    # Founder
+    show_founder = models.BooleanField('Show founder block', default=True)
+    founder_name = models.CharField('Founder name', max_length=100, blank=True, default='Sathish Duraisamy')
+    founder_role = models.CharField(
+        'Founder title', max_length=150, blank=True, default='Founder & Director, London Indian Tamils',
+    )
+    founder_bio = models.TextField(
+        'Founder introduction', blank=True, default=FOUNDER_BIO,
+        help_text='Leave a blank line between paragraphs. Keep it short - the personal website carries the full story.',
+    )
+    founder_quote = models.CharField(
+        'Founder quote', max_length=300, blank=True, default=FOUNDER_QUOTE,
+        help_text='Quotation marks are added automatically.',
+    )
+    founder_button_text = models.CharField('Button text', max_length=50, blank=True, default='ABOUT SATHISH')
+    founder_button_link = models.URLField(
+        'Button link', max_length=500, blank=True,
+        help_text="Sathish's personal website Founder/About page (opens in a new tab). "
+                  "While empty, the button scrolls to the Contact section.",
+    )
+
     class Meta:
         verbose_name = 'About Section'
         verbose_name_plural = 'About Section'
 
     def __str__(self):
         return 'About Section'
+
+    @property
+    def founder_paragraphs(self):
+        return [p.strip() for p in self.founder_bio.replace('\r\n', '\n').split('\n\n') if p.strip()]
 
     @property
     def active_pillars(self):
