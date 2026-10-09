@@ -32,8 +32,9 @@ class AboutSectionForm(forms.ModelForm):
 class AboutSectionAdmin(SingletonAdmin):
     form = AboutSectionForm
     inlines = [AboutPillarInline]
-    readonly_fields = ['background_preview', 'image_preview', 'updated_at']
+    readonly_fields = ['background_preview', 'image_preview', 'founder_photo_preview', 'updated_at']
     background_preview = image_preview('background_image', height=120)
+    founder_photo_preview = image_preview('founder_photo', height=180)
     image_preview = image_preview('image', height=180)
 
     fieldsets = [
@@ -50,6 +51,7 @@ class AboutSectionAdmin(SingletonAdmin):
         ('Founder', {
             'fields': [
                 'show_founder', 'founder_name', 'founder_role',
+                'founder_photo', 'founder_photo_preview', 'founder_photo_alt_text',
                 'founder_bio', 'founder_quote', ('founder_button_text', 'founder_button_link'),
             ],
             'description': 'Shown under the About section, before Our Community.',

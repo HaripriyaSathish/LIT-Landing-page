@@ -19,6 +19,15 @@ class Footer(SingletonModel):
         'Copyright text', max_length=200, default='London Indian Tamils. All Rights Reserved.',
         help_text='"© <current year>" is added in front automatically.',
     )
+    show_credit = models.BooleanField('Show designer credit', default=True)
+    credit_text = models.CharField(
+        'Credit text', max_length=150, blank=True, default='Designed & Developed by Vetri IT Systems',
+        help_text='Small line under the copyright. The whole line is a link.',
+    )
+    credit_link = models.URLField(
+        'Credit link', max_length=500, blank=True, default='https://vetriitsystems.com/',
+        help_text='Opens in a new tab.',
+    )
 
     class Meta:
         verbose_name = 'Footer'

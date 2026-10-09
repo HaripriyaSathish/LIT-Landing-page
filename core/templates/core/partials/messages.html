@@ -13,11 +13,13 @@
       {% for message in messages_section.active_messages %}
         <article class="message-card" data-reveal>
           <div class="message-card__media">
-            {% if message.photo %}
-              <img src="{{ message.photo.url }}" alt="{{ message.name }}{% if message.role %}, {{ message.role }}{% endif %}" loading="lazy">
-            {% else %}
-              <span class="message-card__placeholder" aria-hidden="true">{{ message.name|slice:":1" }}</span>
-            {% endif %}
+            <a class="message-card__thumb" href="{{ message.button_url }}" target="_blank" rel="noopener" aria-label="Watch the message from {{ message.name }}">
+              {% if message.photo %}
+                <img src="{{ message.photo.url }}" alt="{{ message.name }}{% if message.role %}, {{ message.role }}{% endif %}" loading="lazy">
+              {% else %}
+                <span class="message-card__placeholder" aria-hidden="true">{{ message.name|slice:":1" }}</span>
+              {% endif %}
+            </a>
             {% if message.button_text %}
               <a class="btn btn--gold btn--watch" href="{{ message.button_url }}" target="_blank" rel="noopener">
                 <i data-lucide="play"></i><span>{{ message.button_text }}</span>
@@ -35,12 +37,9 @@
 
     {% if messages_section.follow_text_before or messages_section.follow_handle or messages_section.follow_text_after %}
       <p class="follow-line" data-reveal>
-        <i data-lucide="instagram"></i>
-        <span>
-          {{ messages_section.follow_text_before }}
-          {% if messages_section.follow_handle %}<a href="{{ messages_section.follow_link|default:'#' }}" target="_blank" rel="noopener">{{ messages_section.follow_handle }}</a>{% endif %}
-          {{ messages_section.follow_text_after }}
-        </span>
+        <i data-lucide="instagram"></i>{{ messages_section.follow_text_before }}
+        {% if messages_section.follow_handle %}<a href="{{ messages_section.follow_link|default:'#' }}" target="_blank" rel="noopener">{{ messages_section.follow_handle }}</a>{% endif %}
+        {{ messages_section.follow_text_after }}
       </p>
     {% endif %}
   </div>

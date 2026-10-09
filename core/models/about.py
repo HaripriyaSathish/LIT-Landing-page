@@ -7,6 +7,10 @@ FOUNDER_BIO = (
     "initiatives, Sathish wanted to create a platform that goes beyond events and WhatsApp conversations - "
     "a community where people can build friendships, support careers and businesses, share opportunities "
     "and celebrate Tamil culture together.\n\n"
+    "Sathish has been involved in community and cultural initiatives in the UK for many years. He previously "
+    "served as Secretary of the South Indian Society (SIS) and is also the Founder & Director of I for India and "
+    "E for Events, through which he has organised and supported a wide range of Indian cultural, social and "
+    "entertainment activities in the UK.\n\n"
     "His vision for LIT is to bring people together across generations, professions and locations, creating "
     "meaningful connections and a community that supports one another."
 )
@@ -43,6 +47,13 @@ class AboutSection(SingletonModel):
     # Founder
     show_founder = models.BooleanField('Show founder block', default=True)
     founder_name = models.CharField('Founder name', max_length=100, blank=True, default='Sathish Duraisamy')
+    founder_photo = image_field(
+        'about', 'Founder photo', 'Portrait photo shown on the left of the founder block, about 600x750 px.',
+    )
+    founder_photo_alt_text = models.CharField(
+        'Founder photo description', max_length=200, blank=True,
+        default='Sathish Duraisamy, Founder & Director of London Indian Tamils',
+    )
     founder_role = models.CharField(
         'Founder title', max_length=150, blank=True, default='Founder & Director, London Indian Tamils',
     )
@@ -58,7 +69,7 @@ class AboutSection(SingletonModel):
     founder_button_link = models.URLField(
         'Button link', max_length=500, blank=True,
         help_text="Sathish's personal website Founder/About page (opens in a new tab). "
-                  "While empty, the button scrolls to the Contact section.",
+                  "While empty, the button scrolls to the Founder section.",
     )
 
     class Meta:

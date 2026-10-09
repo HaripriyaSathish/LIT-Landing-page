@@ -21,6 +21,9 @@ class FooterAdmin(SingletonAdmin):
         ('Copyright', {
             'fields': ['copyright_text', 'copyright_preview'],
         }),
+        ('Designer credit', {
+            'fields': ['show_credit', 'credit_text', 'credit_link'],
+        }),
         (None, {'fields': ['updated_at']}),
     ]
 

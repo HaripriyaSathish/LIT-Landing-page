@@ -50,14 +50,14 @@ class SupportMessage(OrderedItem):
     name = models.CharField('Name', max_length=100)
     role = models.CharField('Role / title', max_length=100, blank=True)
     status_text = models.CharField(
-        'Status text', max_length=100, blank=True, default='Message coming soon',
-        help_text='Small gold text under the role. Clear it once the video is added.',
+        'Status text', max_length=100, blank=True, default='',
+        help_text='Optional small gold text under the role.',
     )
     button_text = models.CharField('Button text', max_length=50, blank=True, default='Watch Message')
     video_link = models.URLField(
         'Video link', max_length=500, blank=True,
-        help_text='YouTube, Instagram or Cloudinary video link. '
-                  'Leave empty and the button opens the Instagram page.',
+        help_text='YouTube, Instagram or Cloudinary video link. The photo and the button both open it. '
+                  'Leave empty and they open the Instagram page.',
     )
 
     class Meta(OrderedItem.Meta):

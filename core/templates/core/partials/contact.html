@@ -9,7 +9,7 @@
         {% if contact.location %}
           <p class="contact__item">
             <i data-lucide="map-pin"></i>
-            {% if contact.location_link %}<a href="{{ contact.location_link }}" target="_blank" rel="noopener">{{ contact.location }}</a>{% else %}<span>{{ contact.location }}</span>{% endif %}
+            <a href="{{ contact.location_url }}" target="_blank" rel="noopener">{{ contact.location }}</a>
           </p>
         {% endif %}
         <div class="contact__group">

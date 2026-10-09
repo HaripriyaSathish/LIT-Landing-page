@@ -28,6 +28,15 @@
       {% endwith %}
 
       <p class="footer__copy">{{ footer.copyright }}</p>
+      {% if footer.show_credit and footer.credit_text %}
+        <p class="footer__credit">
+          {% if footer.credit_link %}
+            <a href="{{ footer.credit_link }}" target="_blank" rel="noopener">{{ footer.credit_text }}</a>
+          {% else %}
+            {{ footer.credit_text }}
+          {% endif %}
+        </p>
+      {% endif %}
     </div>
   </div>
 </footer>

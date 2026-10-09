@@ -1,3 +1,5 @@
+from urllib.parse import quote_plus
+
 from django.db import models
 
 from .base import OrderedItem, SharedBackgroundMixin, SingletonModel, image_field, phone_link
@@ -16,7 +18,7 @@ class ContactSection(SharedBackgroundMixin, SingletonModel):
     location = models.CharField('Location', max_length=200, blank=True, default='London, United Kingdom')
     location_link = models.URLField(
         'Location map link', max_length=500, blank=True,
-        help_text='Optional Google Maps link - the location becomes clickable.',
+        help_text='Optional. Leave empty to open a Google Maps search for the location above.',
     )
     email = models.EmailField('Email', blank=True)
     phone = models.CharField(
@@ -33,6 +35,14 @@ class ContactSection(SharedBackgroundMixin, SingletonModel):
 
     def __str__(self):
         return 'Contact Section'
+
+    @property
+    def location_url(self):
+        if self.location_link:
+            return self.location_link
+        if self.location:
+            return f'https://www.google.com/maps/search/?api=1&query={quote_plus(self.location)}'
+        return ''
 
     @property
     def phone_url(self):

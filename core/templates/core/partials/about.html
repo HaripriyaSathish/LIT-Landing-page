@@ -44,8 +44,13 @@
   </div>
 
   {% if about.show_founder and about.founder_name %}
-    <div class="container">
-      <article class="founder" data-reveal>
+    <div class="container founder-anchor" id="founder">
+      <article class="founder{% if about.founder_photo %} founder--with-photo{% endif %}" data-reveal>
+        {% if about.founder_photo %}
+          <div class="founder__media">
+            <img class="founder__photo" src="{{ about.founder_photo.url }}" alt="{{ about.founder_photo_alt_text|default:about.founder_name }}" loading="lazy">
+          </div>
+        {% endif %}
         <div class="founder__content">
           <h3 class="founder__name">{{ about.founder_name }}</h3>
           {% if about.founder_role %}<p class="founder__role">{{ about.founder_role }}</p>{% endif %}
@@ -59,7 +64,7 @@
           {% endif %}
 
           {% if about.founder_button_text %}
-            <a class="btn btn--gold founder__button" href="{{ about.founder_button_link|default:'#contact' }}"{% if about.founder_button_link %} target="_blank" rel="noopener"{% endif %}>
+            <a class="btn btn--gold founder__button" href="{{ about.founder_button_link|default:'#founder' }}"{% if about.founder_button_link %} target="_blank" rel="noopener"{% endif %}>
               <span>{{ about.founder_button_text }}</span><i data-lucide="arrow-right"></i>
             </a>
           {% endif %}

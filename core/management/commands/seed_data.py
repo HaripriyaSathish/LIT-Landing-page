@@ -53,8 +53,10 @@ NAVBAR = {
 
 NAV_LINKS = [
     ('About', '#about'),
+    ('Founder', '#founder'),
     ('Community', '#community'),
     ('Events', '#events'),
+    ('Voices', '#messages'),
     ('Join LIT', '#join'),
     ('Contact', '#contact'),
 ]
@@ -134,7 +136,7 @@ COMMUNITY_CARDS = [
     ('store', 'Business & Networking',
      'Connect, collaborate and support businesses and professionals within our community.'),
     ('shopping-bag', 'Marketplace', 'Buy, sell and recommend within the community.'),
-    ('party-popper', 'Young Adults – 18 to 30', 'A space for the next generation to connect.'),
+    ('party-popper', 'Young Adults – 18 to 30', 'Respectful discussion on UK, Indian and Tamil-related politics and current affairs.'),
     ('trophy', 'Sports & Fitness', 'Cricket, badminton, runs and staying active.'),
     ('graduation-cap', 'Kids & Education', 'Tamil learning, schools and family support.'),
     ('calendar-heart', 'Events & Activities', 'Festivals, trips, music and celebrations.'),
@@ -219,10 +221,10 @@ MESSAGES = {
 }
 
 SUPPORT_MESSAGES = [
-    ('Srinivas', 'Singer'),
-    ('Unni Krishnan', 'Singer'),
-    ('Gopinath', 'Neeya Naana'),
-    ('Dushyanth Sridhar', 'Speaker & Author'),
+    ('Srinivas', 'Singer', 'https://www.instagram.com/reel/Db-Z4MnNmfn/'),
+    ('Unni Krishnan', 'Singer', 'https://www.instagram.com/reel/DcU0owEChJ-/'),
+    ('Gopinath', 'Neeya Naana', 'https://www.instagram.com/reel/Dcf0wGJtzfm/'),
+    ('Dushyanth Sridhar', 'Speaker & Author', 'https://www.instagram.com/reel/DdBrOLMNiJQ/'),
 ]
 
 JOIN = {
@@ -292,6 +294,9 @@ FOOTER = {
     'quote': 'India in our heart. London in our home. Tamil in our identity.',
     'show_social_icons': True,
     'copyright_text': 'London Indian Tamils. All Rights Reserved.',
+    'show_credit': True,
+    'credit_text': 'Designed & Developed by Vetri IT Systems',
+    'credit_link': 'https://vetriitsystems.com/',
 }
 
 # Phone and email come from the Contact section; Instagram from the Social Media section.
@@ -346,8 +351,8 @@ class Command(BaseCommand):
         )
         self.seed_singleton(
             MessagesSection, MESSAGES, 'messages', SupportMessage, 'section',
-            [{'name': name, 'role': role, 'status_text': 'Message coming soon', 'button_text': 'Watch Message'}
-             for name, role in SUPPORT_MESSAGES],
+            [{'name': name, 'role': role, 'video_link': video_link, 'button_text': 'Watch Message'}
+             for name, role, video_link in SUPPORT_MESSAGES],
         )
         self.seed_singleton(
             JoinSection, JOIN, 'benefits', JoinBenefit, 'section', [{'text': text} for text in JOIN_BENEFITS],
