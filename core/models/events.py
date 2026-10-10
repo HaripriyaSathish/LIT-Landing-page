@@ -150,8 +150,8 @@ class Event(OrderedItem):
     def active_features(self):
         return self.features.filter(is_active=True)
 
-    # Two reels are shown as big cards; any others become small links underneath.
-    FEATURED_REELS = 2
+    # Three reels are shown as cover cards; any others become small links underneath.
+    FEATURED_REELS = 3
 
     @property
     def active_reels(self):
@@ -174,12 +174,12 @@ class EventReel(OrderedItem):
     cover_alt_text = models.CharField('Cover description', max_length=200, blank=True)
     caption = models.CharField(
         'Caption', max_length=100, blank=True,
-        help_text='Optional short line on the card. Extra videos (3rd onwards) use it as the link text.',
+        help_text='Optional short line on the card. Extra videos (4th onwards) use it as the link text.',
     )
 
     class Meta(OrderedItem.Meta):
         verbose_name = 'Performance video'
-        verbose_name_plural = 'Performance videos (first 2 shown as cards, the rest as small links)'
+        verbose_name_plural = 'Performance videos (first 3 shown as cards, the rest as small links)'
 
     def __str__(self):
         return self.caption or self.link
