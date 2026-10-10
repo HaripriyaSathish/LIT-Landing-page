@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
 
-from core.models import Event, EventFeature, EventsHighlight, EventsSection
+from core.models import Event, EventFeature, EventReel, EventsHighlight, EventsSection
 
 from .mixins import OrderedInline, SharedBackgroundAdminMixin, SingletonAdmin, image_preview
 
@@ -48,9 +48,23 @@ class EventFeatureInline(OrderedInline):
     fields = ['order', 'text', 'is_active']
 
 
+class EventReelInline(admin.StackedInline):
+    model = EventReel
+    extra = 0
+    ordering = ['order', 'id']
+    readonly_fields = ['cover_preview']
+    cover_preview = image_preview('cover', height=160)
+    fields = [
+        ('order', 'is_active'),
+        'link',
+        ('cover', 'cover_preview'),
+        ('cover_alt_text', 'caption'),
+    ]
+
+
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    inlines = [EventFeatureInline]
+    inlines = [EventFeatureInline, EventReelInline]
     list_display = ['__str__', 'date', 'venue', 'order', 'is_active']
     list_editable = ['order', 'is_active']
     list_filter = ['is_active']
@@ -77,5 +91,17 @@ class EventAdmin(admin.ModelAdmin):
         ('Button', {
             'fields': ['button_text', 'button_link'],
         }),
+        ('Performance videos block (optional, under the event card)', {
+            'fields': [
+                'reels_heading', 'reels_intro', 'cta_heading', 'cta_venue',
+                'reels_more_text', ('reels_more_handle', 'reels_more_link'),
+            ],
+            'description': 'Shown when this event has at least one performance video (added at the bottom '
+                           'of this page). The booking strip reuses the date, ticket information and button above.',
+        }),
         (None, {'fields': ['updated_at']}),
     ]
+
+    def get_form(self, request, obj=None, **kwargs):
+        kwargs['widgets'] = {'reels_intro': forms.Textarea(attrs={'rows': 2})}
+        return super().get_form(request, obj, **kwargs)

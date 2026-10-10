@@ -2,7 +2,7 @@ from .about import AboutPillar, AboutSection
 from .community import CommunityCard, CommunityHighlight, CommunitySection
 from .contact import ContactButton, ContactSection
 from .contact_buttons import FloatingButtons
-from .events import Event, EventFeature, EventsHighlight, EventsSection
+from .events import Event, EventFeature, EventReel, EventsHighlight, EventsSection
 from .footer import Footer
 from .gallery import GalleryPhoto, GallerySection
 from .hero import HeroSection, HeroTag
@@ -19,7 +19,7 @@ __all__ = [
     'HeroSection', 'HeroTag',
     'AboutSection', 'AboutPillar',
     'CommunitySection', 'CommunityHighlight', 'CommunityCard',
-    'EventsSection', 'EventsHighlight', 'Event', 'EventFeature',
+    'EventsSection', 'EventsHighlight', 'Event', 'EventFeature', 'EventReel',
     'GallerySection', 'GalleryPhoto',
     'MessagesSection', 'SupportMessage',
     'JoinSection', 'JoinBenefit',

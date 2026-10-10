@@ -18,6 +18,7 @@
 
     <div class="events__list">
       {% for event in events %}
+        <div class="event-group">
         <article class="event-card" data-reveal{% if event.background_image %} style="--event-bg: url('{{ event.background_image.url }}')"{% endif %}{% if event.background_image_alt_text %} aria-label="{{ event.background_image_alt_text }}"{% endif %}>
           {% if event.background_image_alt_text %}<span class="sr-only">{{ event.background_image_alt_text }}</span>{% endif %}
           <div class="event-card__main">
@@ -72,6 +73,68 @@
             {% endif %}
           </div>
         </article>
+
+        {% with reels=event.featured_reels %}
+          {% if event.reels_heading and reels %}
+            <section class="event-reels" data-reveal aria-labelledby="event-reels-{{ event.pk }}">
+              <div class="event-reels__head">
+                <h3 class="event-reels__title" id="event-reels-{{ event.pk }}">{{ event.reels_heading }}</h3>
+                {% if event.reels_intro %}<p class="event-reels__intro">{{ event.reels_intro }}</p>{% endif %}
+              </div>
+
+              <div class="event-reels__grid">
+                {% for reel in reels %}
+                  <a class="reel-card" href="{{ reel.link }}" target="_blank" rel="noopener" aria-label="Watch {{ reel.caption|default:event.reels_heading }} on Instagram (opens in a new tab)">
+                    <span class="reel-card__media">
+                      {% if reel.cover %}<img src="{{ reel.cover.url }}" alt="{{ reel.cover_alt_text }}" loading="lazy" width="360" height="640">{% endif %}
+                      <span class="reel-card__play" aria-hidden="true"><i data-lucide="play"></i></span>
+                    </span>
+                    <span class="reel-card__foot">
+                      <i data-lucide="instagram"></i>
+                      <span>{{ reel.caption|default:"Watch on Instagram" }}</span>
+                    </span>
+                  </a>
+                {% endfor %}
+              </div>
+
+              {% with extras=event.extra_reels %}
+                {% if extras %}
+                  <p class="event-reels__extra">
+                    {% for reel in extras %}
+                      <a href="{{ reel.link }}" target="_blank" rel="noopener"><i data-lucide="circle-play"></i>{{ reel.caption|default:"Watch another performance" }}</a>
+                    {% endfor %}
+                  </p>
+                {% endif %}
+              {% endwith %}
+
+              <div class="event-cta">
+                <div class="event-cta__text">
+                  {% if event.cta_heading %}<p class="event-cta__title">{{ event.cta_heading }}</p>{% endif %}
+                  <ul class="event-cta__details">
+                    <li><i data-lucide="calendar"></i>{{ event.date|date:"l j F Y" }}</li>
+                    {% if event.cta_venue or event.venue %}<li><i data-lucide="map-pin"></i>{{ event.cta_venue|default:event.venue }}</li>{% endif %}
+                    {% if event.ticket_info %}<li><i data-lucide="ticket"></i>{{ event.ticket_info }}</li>{% endif %}
+                  </ul>
+                </div>
+                {% if event.button_text %}
+                  {% with button=event.button %}
+                    <a class="btn btn--gold btn--book event-cta__btn" href="{{ button.url }}"{% if button.new_tab %} target="_blank" rel="noopener"{% endif %}>
+                      <span>{{ button.text }}</span><i data-lucide="arrow-right"></i>
+                    </a>
+                  {% endwith %}
+                {% endif %}
+              </div>
+
+              {% if event.reels_more_text %}
+                <p class="event-reels__more">
+                  <i data-lucide="instagram"></i>{{ event.reels_more_text }}
+                  {% if event.reels_more_handle %}<a href="{{ event.reels_more_link|default:'#' }}" target="_blank" rel="noopener">{{ event.reels_more_handle }}</a>{% endif %}
+                </p>
+              {% endif %}
+            </section>
+          {% endif %}
+        {% endwith %}
+        </div>
       {% endfor %}
     </div>
   </div>

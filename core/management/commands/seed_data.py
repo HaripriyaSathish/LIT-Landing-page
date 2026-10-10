@@ -15,7 +15,7 @@ from django.db import transaction
 from core.management.pages_content import COMMUNITY_GUIDELINES, PRIVACY_POLICY
 from core.models import (
     AboutPillar, AboutSection, CommunityCard, CommunityHighlight, CommunitySection,
-    ContactButton, ContactSection, Event, EventFeature, EventsHighlight, EventsSection,
+    ContactButton, ContactSection, Event, EventFeature, EventReel, EventsHighlight, EventsSection,
     FloatingButtons, Footer, GalleryPhoto, GallerySection, HeroSection, HeroTag, InfoPage,
     JoinBenefit, JoinSection, MessagesSection, Navbar, NavLink, SiteSettings,
     SocialLink, SocialSection, SupportMessage,
@@ -170,8 +170,35 @@ EVENT_LIST = [
             'ticket_info': 'Tickets from £22.50 including 3-course dinner',
             'button_text': 'BOOK NOW',
             'button_link': '',  # empty = event booking link (Ticket Tailor) from Site Settings
+            'reels_heading': 'Experience MJ Shriram',
+            'reels_intro': (
+                'Watch MJ Shriram in action and get a taste of the music you can enjoy live at '
+                'LIT Deepavali Kondattam.'
+            ),
+            'cta_heading': 'See MJ Shriram Live in London',
+            'cta_venue': 'Cranford Suite, TW5 9PD',
+            'reels_more_text': 'Watch more MJ Shriram performances on',
+            'reels_more_handle': '@londonindiantamils',
+            'reels_more_link': 'https://www.instagram.com/londonindiantamils/',
         },
         'features': ['Live Music', '3-Course Dinner', 'Family Entertainment', 'Deepavali Celebration'],
+        'reels': [
+            {
+                'link': 'https://www.instagram.com/reel/DdYwb1vt--p/',
+                'cover': 'https://res.cloudinary.com/cikqryjt/image/upload/v1791554561/lit/events/mj_shriram_reel_1_juy2ri.jpg',
+                'cover_alt_text': 'MJ Shriram singing live, Deepavali Kondattam poster',
+            },
+            {
+                'link': 'https://www.instagram.com/reel/DdqYSe8NOkx/',
+                'cover': 'https://res.cloudinary.com/cikqryjt/image/upload/v1791554562/lit/events/mj_shriram_reel_2_tnyo6l.jpg',
+                'cover_alt_text': 'MJ Shriram singing live, Deepavali Kondattam poster',
+            },
+            {
+                'link': 'https://www.instagram.com/reel/DePVOApNLDx/',
+                'cover': 'https://res.cloudinary.com/cikqryjt/image/upload/v1791554563/lit/events/mj_shriram_reel_3_b9xut8.jpg',
+                'cover_alt_text': 'MJ Shriram singing live, Deepavali Kondattam poster',
+            },
+        ],
     },
     {
         'event': {
@@ -391,6 +418,7 @@ class Command(BaseCommand):
             if created:
                 added += 1
                 self.seed_items(event, 'features', EventFeature, 'event', [{'text': t} for t in item['features']])
+                self.seed_items(event, 'reels', EventReel, 'event', item.get('reels', []))
         self.stdout.write(f'  Events: {added} added, {len(EVENT_LIST) - added} already there')
 
     def seed_site_settings(self):

@@ -2,7 +2,7 @@ from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404, render
 
 from core.models import (
-    AboutSection, CommunitySection, ContactSection, Event, EventFeature, EventsSection,
+    AboutSection, CommunitySection, ContactSection, Event, EventFeature, EventReel, EventsSection,
     FloatingButtons, Footer, GallerySection, HeroSection, InfoPage, JoinSection, MessagesSection,
     Navbar, SiteSettings, SocialSection,
 )
@@ -19,6 +19,7 @@ def _common_context():
 def home(request):
     events = Event.objects.filter(is_active=True).prefetch_related(
         Prefetch('features', queryset=EventFeature.objects.filter(is_active=True)),
+        Prefetch('reels', queryset=EventReel.objects.filter(is_active=True)),
     )
     context = {
         **_common_context(),
